@@ -12,12 +12,26 @@
         </ion-toolbar>
       </ion-header>
 
-      <ExploreContainer name="Tab 1 page" />
+      <ion-list lines="none">
+        <ion-item @click="changeLange('en')">
+          <ion-label>{{ $t('my.qiehuanyuyan') }}</ion-label>
+        </ion-item>
+        <ion-item @click="changeLange('zh-CN')">
+          <ion-label>{{ $t('my.qiehuanyuyan') }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>No Lines</ion-label>
+        </ion-item>
+      </ion-list>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+import cache from '@/utils/cache';
+import { changeI18nLanguage } from '@/lang';
+function changeLange(value:string){
+    changeI18nLanguage(value);
+}
 </script>
