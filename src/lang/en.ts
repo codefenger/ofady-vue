@@ -3,6 +3,9 @@ export default{
         yongche:'User Car',
         wode:'My'
     },
+    car:{
+        
+    },
     my:{
         qiehuanyuyan:'Change Language'
     }
