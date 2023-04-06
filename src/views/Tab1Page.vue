@@ -98,7 +98,7 @@ const alertButtons=[{
     });
   }
 }];
-const alertInputs=[{
+const alertInputs:AlertInput[]=[{
   label:'无界新能源',
   type:'radio',
   value:'无界新能源',
