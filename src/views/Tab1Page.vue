@@ -2,9 +2,9 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>无界新能源</ion-title>
+        <ion-title>{{ lastSelectedCar }}</ion-title>
         <ion-buttons slot="end">
-          <ion-button  @click="selectCar()">
+          <ion-button @click="selectCar">
             <ion-icon slot="icon-only" :ios="ellipsisHorizontal" :md="ellipsisVertical"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -13,7 +13,7 @@
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">无界新能源</ion-title>
+          <ion-title size="large">{{lastSelectedCar}}</ion-title>
         </ion-toolbar>
       </ion-header>
 
@@ -61,16 +61,61 @@
 </style>
 
 <script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent,IonButtons,IonButton,IonIcon,IonList,IonItem,IonLabel } from '@ionic/vue';
+import {ref} from 'vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent,IonButtons,IonButton,IonIcon,IonList,IonItem,IonLabel,alertController, AlertInput } from '@ionic/vue';
 import cache from '@/utils/cache';
 import { changeI18nLanguage } from '@/lang';
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
 function changeLange(value:string){
     changeI18nLanguage(value);
 }
-function selectCar(){
-    console.log('select car click')
+const selectCar=async()=>{
+  const alert = await alertController.create({
+          header: '切换汽车',
+          buttons: alertButtons,
+          inputs:alertInputs
+        });
+  await alert.present();
 }
+let nowCar='无界新能源';
+const lastSelectedCar=ref('无界新能源');
+const changeCar=(input:AlertInput)=>{
+  nowCar=input.value;
+  console.log(nowCar)
+}
+const alertButtons=[{
+  text:'确定',
+  role:'confirm',
+  handler:()=>{
+    console.log(alertInputs);
+    lastSelectedCar.value=nowCar;
+    alertInputs.forEach(c=>{
+      if(c.value===nowCar){
+        c.checked=true
+      }else{
+        c.checked=false;
+      }
+    });
+  }
+}];
+const alertInputs=[{
+  label:'无界新能源',
+  type:'radio',
+  value:'无界新能源',
+  checked:true,
+  handler:changeCar
+},{
+  label:'无界2',
+  type:'radio',
+  value:'无界2',
+  handler:changeCar
+},{
+  label:'无界3',
+  type:'radio',
+  value:'无界3',
+  handler:changeCar
+}];
+
 </script>
 
 <style scoped>
